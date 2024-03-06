@@ -38,7 +38,7 @@ const typeDefs = `
     movie(movie_name: String!): Movie
     movieseries(movie_name: String!): Movie
     series(series_name: String!): Series    
-    allMovieNames: [String!]!
+    allMovieNames( offset: Int , limit: Int): [String!]!
     allSeriesNames: [String!]!
     totalsize: JSONObject!
     movieSearch(query: String!): [Movie!]!
@@ -112,7 +112,7 @@ const resolvers = {
         throw error;
       }
     },
-    allMovieNames: async (_, __, {movies_collection}) => {
+    allMovieNames: async (_, { offset , limit }, {movies_collection}) => {
       /* try {
          const query = 'SELECT movie_name FROM moviedata WHERE is_series = false;';
          const result = await pool.query(query);
@@ -122,6 +122,8 @@ const resolvers = {
          throw new Error('Error retrieving movie names');
        }*/
        try {
+        (offset == null) ? offset = 0 : offset = offset;    // to make it compatible with older version of client also
+        (limit == null) ? limit = 0 : limit = limit;    // to make it compatible with older version of client also
          const query1 = { is_series: false };
          const projection = {
            _id: 0,
@@ -136,7 +138,7 @@ const resolvers = {
            admin: 0,
            message_id: 0
          };
-         const result = await movies_collection.find(query1).project(projection).toArray();
+         const result = await movies_collection.find(query1).skip( offset ).limit( limit ).project(projection).toArray();
          const movieNames = result.map(item => item.movie_name);
          console.log(movieNames);
          return movieNames;
