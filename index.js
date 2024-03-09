@@ -73,6 +73,7 @@ server.start().then(() => {
 
 //************************************************TELEGRAM AUTH BOT************************************************************* */
 const { TelecoreBot } = require('./telecore/bot.js');
+
 (async () => {
   try {
     console.log('bot started');
@@ -80,6 +81,7 @@ const { TelecoreBot } = require('./telecore/bot.js');
   } catch (error) {
     console.error(error);}
 })();
+
 //***************************************************************************************************************************** */
 
 
