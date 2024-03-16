@@ -40,6 +40,7 @@ bot.on('message', async (msg) => {
   else if((msg.from.id != admin1 || msg.from.id != admin2) && msg.text){
   try {
       const payload = msg.text.substring(6);
+      const message_id = msg.message_id;      
       if (payload.length) {
         const url = Buffer.from(payload, 'base64').toString();
         const params = Object.fromEntries(new URLSearchParams(url).entries());
@@ -54,6 +55,12 @@ bot.on('message', async (msg) => {
             bot.forwardMessage(chatId,  admin1 , data1.message_id);
             else
             bot.forwardMessage(chatId,  admin2 , data1.message_id);
+            setTimeout(
+              function(){
+               bot.deleteMessage(chatId,(message_id+2).toString());
+               console.log(chatId,(message_id+2).toString());
+              }
+              , 300000);
             //dev1 [message id is from dev1<->bot]
           } catch (error) {
             console.error('Error fetching telecore data:', error);
