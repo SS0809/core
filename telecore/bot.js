@@ -57,8 +57,8 @@ bot.on('message', async (msg) => {
             bot.forwardMessage(chatId,  admin2 , data1.message_id);
             setTimeout(
               function(){
-               bot.deleteMessage(chatId,(message_id+2).toString());
-               console.log(chatId,(message_id+2).toString());
+                bot.deleteMessage(chatId,(message_id+2).toString());
+                bot.deleteMessage(chatId,(message_id+1).toString());
               }
               , 300000);
             //dev1 [message id is from dev1<->bot]
