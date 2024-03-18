@@ -76,7 +76,7 @@ const { TelecoreBot } = require('./telecore/bot.js');
 
 (async () => {
   try {
-    console.log('bot started');
+    console.log('auth bot started');
     await TelecoreBot();
   } catch (error) {
     console.error(error);}
@@ -84,7 +84,17 @@ const { TelecoreBot } = require('./telecore/bot.js');
 
 //***************************************************************************************************************************** */
 
+const { search_bot } = require('./telecore/search_bot.js');
 
+(async () => {
+  try {
+    console.log('search bot started');
+    await search_bot();
+  } catch (error) {
+    console.error(error);}
+})();
+
+//***************************************************************************************************************************** */
 
 
 

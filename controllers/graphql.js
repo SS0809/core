@@ -220,12 +220,16 @@ const resolvers = {
         console.error('Error executing redis query', error);
       }
     },
-    movieSearch: async (_, { query }) => {
+    movieSearch: async (_, { query } , {movies_collection}) => {
       try {  // TODO IN MONGODB
+        /*
         const searchQuery = `%${query.toLowerCase()}%`;
         const sqlQuery = 'SELECT * FROM moviedata WHERE lower(movie_name) LIKE $1';
         const result = await pool.query(sqlQuery, [searchQuery]);
-        return result.rows;
+        return result.rows;*/
+        const searchQuery = new RegExp(query, 'i'); // Case-insensitive search
+        const result = await movies_collection.find({ movie_name: searchQuery }).toArray();
+        return result;
       } catch (error) {
         console.error('Error executing query', error);
         throw new Error('Error searching movies');
