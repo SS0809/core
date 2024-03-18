@@ -5,7 +5,7 @@ graphql/package-lock.json
 graphql/.env
 .vscode/*
 .env
-telecore/s*
+telecore/session*
 telecore/jsonfiles/*
 telecore/session_name.session
 mongodb_aws/node_modules/*
