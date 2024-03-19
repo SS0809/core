@@ -1,12 +1,12 @@
 const axios = require('axios');
 const { Octokit } = require("@octokit/rest");
-const githubToken = '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'; 
+const githubToken = process.env.GITHUB_TOKEN ;
 const octokit = new Octokit({
   auth: githubToken,
 });
 async function getWorkflowArtifacts(repository_name) {
   const repository_owner = "ss08090";
-  const access_token = "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";
+  const access_token = process.env.GITHUB_TOKEN; 
   var headers = {
     "Accept": "application/vnd.github+json",
     "Authorization": `Bearer ${access_token}`,

@@ -17,7 +17,7 @@ const pool = new Pool({
 // file A.js
 const createRepository = async (suppliedfileid , is_series) => {
 //const suppliedfileid = '1s0jdnGdtdg2aYWIMkwx8v2-EP7GBN678';
-const token = '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';
+const token = process.env.GITHUB_TOKEN; 
 var suppliedfilename = '';
 
 // Load the service account credentials
