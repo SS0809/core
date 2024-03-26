@@ -1,13 +1,14 @@
+GNU nano 5.8                                                                           cli/cli.mjs                                                                                      
 #!/usr/bin/env node
 
 import select from '@inquirer/select';
 import { Separator } from '@inquirer/select';
-import fetch from 'node-fetch'; 
+import fetch from 'node-fetch';
 import inquirer from 'inquirer';
-import { spawn } from 'child_process';
+import { exec , spawn } from 'child_process';
 import dotenv from 'dotenv';
 dotenv.config();
-const defaultport = process.env.PORT ; 
+const defaultport = process.env.PORT ;
 let serverProcess;
 
 const startServer = async () => {
@@ -25,8 +26,9 @@ const startServer = async () => {
 
 const stopServer = async () => {
   //console.log('Stopping the server...');
-  serverProcess = spawn('pm2',['delete', 'index']);
-  serverProcess.kill('SIGINT'); // Send SIGINT signal to stop the server
+  if (!exec('pm2 delete index')){
+    console.error('Server process is not running.');
+  }
 };
 
 
