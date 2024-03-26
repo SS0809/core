@@ -1,4 +1,3 @@
-GNU nano 5.8                                                                           cli/cli.mjs                                                                                      
 #!/usr/bin/env node
 
 import select from '@inquirer/select';
