@@ -11,12 +11,12 @@ const defaultport = process.env.PORT ;
 let serverProcess;
 
 const startServer = async () => {
-  console.log('Starting the server...');
-  serverProcess = spawn('node', ['index.js']);
+  //console.log('Starting the server...');
+  serverProcess = spawn('pm2',['start'], ['index.js']);
 
-  serverProcess.stdout.on('data', (data) => {
+  /*serverProcess.stdout.on('data', (data) => {
     console.log(`Server output: ${data}`);
-  });
+  });*/
 
   serverProcess.stderr.on('data', (data) => {
     console.error(`Server error: ${data}`);
@@ -24,13 +24,14 @@ const startServer = async () => {
 };
 
 const stopServer = async () => {
-  console.log('Stopping the server...');
+  //console.log('Stopping the server...');
+  serverProcess = spawn('pm2',['delete'], ['index']);
   serverProcess.kill('SIGINT'); // Send SIGINT signal to stop the server
 };
 
 
 const sizeAction = async () => { // Mark function as async
-  console.log('Evaluating size...');
+  //console.log('Evaluating size...');
   try {
     const response = await fetch(`http://localhost:${defaultport}/size`);
     if (response.ok) {
@@ -45,7 +46,7 @@ const sizeAction = async () => { // Mark function as async
 };
 
 const getmovies = async () => {
-  console.log('\x1b[31mFetching Data...\x1b[0m');
+  //console.log('\x1b[31mFetching Data...\x1b[0m');
   try {
     const response = await fetch(`http://localhost:${defaultport}/movie_data`);
     if (response.ok) {
@@ -78,7 +79,7 @@ const getmovies = async () => {
 
 
 const get_telecore_data = async () => {
-  console.log('\x1b[31mFetching Data...\x1b[0m');
+  //console.log('\x1b[31mFetching Data...\x1b[0m');
   try {
     const response = await fetch(process.env.TELECORE_API_ENDPOINT);
     if (response.ok) {
