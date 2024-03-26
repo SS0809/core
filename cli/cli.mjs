@@ -12,7 +12,7 @@ let serverProcess;
 
 const startServer = async () => {
   //console.log('Starting the server...');
-  serverProcess = spawn('pm2',['start'], ['index.js']);
+  serverProcess = spawn('pm2', ['start', 'index.js']);
 
   /*serverProcess.stdout.on('data', (data) => {
     console.log(`Server output: ${data}`);
@@ -25,7 +25,7 @@ const startServer = async () => {
 
 const stopServer = async () => {
   //console.log('Stopping the server...');
-  serverProcess = spawn('pm2',['delete'], ['index']);
+  serverProcess = spawn('pm2',['delete', 'index']);
   serverProcess.kill('SIGINT'); // Send SIGINT signal to stop the server
 };
 
