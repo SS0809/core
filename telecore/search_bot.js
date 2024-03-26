@@ -42,7 +42,7 @@ bot.on('message', async (msg) => {
 });
 
 async function searchMovie(query) {
-  const graphqlEndpoint = 'http://localhost:8080/graphql'; // Replace with the actual GraphQL API URL
+  const graphqlEndpoint = 'http://localhost:' + process.env.PORT + '/graphql'; // Replace with the actual GraphQL API URL
   const requestBody = {
     query: `
       query ExampleQuery($query: String!) {

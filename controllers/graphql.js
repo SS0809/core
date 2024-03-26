@@ -228,7 +228,7 @@ const resolvers = {
         const result = await pool.query(sqlQuery, [searchQuery]);
         return result.rows;*/
         const searchQuery = new RegExp(query, 'i'); // Case-insensitive search
-        const result = await movies_collection.find({ movie_name: searchQuery }).toArray();
+        const result = await movies_collection.find({ movie_name: searchQuery }).limit(5).toArray();
         return result;
       } catch (error) {
         console.error('Error executing query', error);

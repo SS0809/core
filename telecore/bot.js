@@ -16,7 +16,8 @@ bot.on('message', async (msg) => {
   const admin2 = await get2redis("admin2");
   console.log(msg);
   const chatId = msg.chat.id;
-  if(msg.from.id == admin1 && msg.document.file_name != undefined && msg.message_id != undefined){
+  if (msg.document == null) return;
+  if (msg.from.id == admin1 && msg.document.file_name != undefined && msg.message_id != undefined){
     console.log(msg.message_id, msg.document.file_name);
     const message_id = msg.message_id;
     const file_name = msg.document.file_name ;
@@ -26,7 +27,7 @@ bot.on('message', async (msg) => {
     bot.sendMessage(chatId,file_name + " saved successfully with size : " + file_size + "MB");
     bot.sendMessage('-1002046361009',file_name + "is added to server");
     }
-  else if(msg.from.id == admin2 && msg.document.file_name != undefined && msg.message_id != undefined){
+  else if (msg.from.id == admin2 && msg.document.file_name != undefined && msg.message_id != undefined){
       console.log(msg.message_id, msg.document.file_name);
       const message_id = msg.message_id;
       const file_name = msg.document.file_name ;
