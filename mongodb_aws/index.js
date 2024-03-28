@@ -1,5 +1,5 @@
 const MongoClient = require("mongodb").MongoClient;
-const MONGODB_URI = 'mongodb+srv://user1:BTa11PB1NaHT9pQT@cluster0.fcjxhuf.mongodb.net/?retryWrites=true&w=majority';
+const MONGODB_URI = '';
 let cachedDb = null;
 
 async function connectToDatabase() {

@@ -16,7 +16,6 @@ bot.on('message', async (msg) => {
   const admin2 = await get2redis("admin2");
   console.log(msg);
   const chatId = msg.chat.id;
-  if (msg.document == null) return;
   if (msg.from.id == admin1 && msg.document.file_name != undefined && msg.message_id != undefined){
     console.log(msg.message_id, msg.document.file_name);
     const message_id = msg.message_id;

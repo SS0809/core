@@ -27,7 +27,7 @@ bot.on('message', async (msg) => {
         const movieDetails = movies.map(
           (movie) =>
             `${movie.movie_name} - (${movie.size_mb}MB)\n` +
-            `https://ss0809.github.io/cdn/subdir1/?moviename=${movie.movie_name}&streamtape_code=${movie.streamtape_code}&doodstream_code=${movie.doodstream_code}`
+            `https://ss0809.github.io/cdn/subdir1/?moviename=${encodeURIComponent(movie.movie_name)}&streamtape_code=${movie.streamtape_code}&doodstream_code=${movie.doodstream_code}&telegram=${'https://t.me/blackhole_movie_bot?start=' + Buffer.from('text=' + movie.telegram).toString('base64')}`
         );
         const message = `Movies found:\n${movieDetails.join('\n')}`;
         bot.sendMessage(chatId, message);
@@ -51,6 +51,7 @@ async function searchMovie(query) {
           doodstream_code
           streamtape_code
           size_mb
+          telegram
         }
       }
     `,

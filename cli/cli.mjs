@@ -3,32 +3,11 @@
 import select from '@inquirer/select';
 import { Separator } from '@inquirer/select';
 import fetch from 'node-fetch';
-import inquirer from 'inquirer';
-import { exec , spawn } from 'child_process';
+import inquirer from 'inquirer';  
 import dotenv from 'dotenv';
 dotenv.config();
+import pm2lib from '../pm2lib.js';
 const defaultport = process.env.PORT ;
-let serverProcess;
-
-const startServer = async () => {
-  //console.log('Starting the server...');
-  serverProcess = spawn('pm2', ['start', 'index.js']);
-
-  /*serverProcess.stdout.on('data', (data) => {
-    console.log(`Server output: ${data}`);
-  });*/
-
-  serverProcess.stderr.on('data', (data) => {
-    console.error(`Server error: ${data}`);
-  });
-};
-
-const stopServer = async () => {
-  //console.log('Stopping the server...');
-  if (!exec('pm2 delete index')){
-    console.error('Server process is not running.');
-  }
-};
 
 
 const sizeAction = async () => { // Mark function as async
@@ -114,17 +93,27 @@ const get_telecore_data = async () => {
 
 const main = async () => {
   while (true) {
+    const processes = await pm2lib.getProcesses();
+    (processes[0].pm2_env.status == 'online')?console.log('online\x1b[32m'):console.log('offline\x1b[32m');
     const { action } = await inquirer.prompt({
       type: 'list',
       name: 'action',
-      loop: true,
+      loop: false,
       message: 'Heyy Dear, what can i do :',
       choices: [
         new inquirer.Separator('servers'),
         {
-          name: 'Toggle Server (ON/OFF)',
-          value: 'toggleServer',
+          name: 'Toggle Server (ON)',
+          value: 'ServerON',
         },
+        {
+          name: 'Toggle Server (OFF)',
+          value: 'ServerOFF',
+        },  
+        {
+          name: 'Toggle Server (RESTART)',
+          value: 'ServerRE',
+        },                
         {
           name: 'Exit',
           value: 'exit',
@@ -155,22 +144,21 @@ const main = async () => {
         case 'telecore_data':
           await get_telecore_data();
           break;        
-      case 'toggleServer':
-        if (serverProcess) {
-         await stopServer();
-          serverProcess = null;
-        } else {
-         await startServer();
-        }
-        break;
+        case 'ServerON':
+          await pm2lib.startProcess();
+          break;
+        case 'ServerOFF':
+          await pm2lib.stopProcess();
+          break;  
+        case 'ServerRE':
+          await pm2lib.restartProcess();
+          break;                        
       case 'exit':
-        process.exit(0); // Exit the application
+        process.exit(0); 
         break;
       default:
         console.log('Invalid selection');
     }
   }
 };
-
-// Call the main function directly
 main();
