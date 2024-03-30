@@ -107,6 +107,10 @@ const main = async () => {
           value: 'ServerON',
         },
         {
+          name: 'Toggle Server (ON) with BOT enabled',
+          value: 'ServerONBOT',
+        },        
+        {
           name: 'Toggle Server (OFF)',
           value: 'ServerOFF',
         },  
@@ -147,6 +151,9 @@ const main = async () => {
         case 'ServerON':
           await pm2lib.startProcess();
           break;
+        case 'ServerONBOT':
+          await pm2lib.botstartProcess();
+          break;            
         case 'ServerOFF':
           await pm2lib.stopProcess();
           break;  

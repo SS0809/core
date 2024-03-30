@@ -13,20 +13,19 @@ const fs = require('fs');
 const { v4: uuidv4, validate: isUUID } = require('uuid');
 const { JWT } = require('google-auth-library');
 const { Octokit } = require("@octokit/rest");
-const githubToken = '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'; 
 const credentials = require('./drive-download-389811-ab674586465b.json');
 require('dotenv').config();
 const http = require('http');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const octokit = new Octokit({
-  auth: githubToken,
+  auth: process.env.GITHUB_TOKEN,
 });
 
 const express = require('express');
 const app = express();
 app.use(express.json());
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 
 
@@ -73,7 +72,7 @@ server.start().then(() => {
 
 //************************************************TELEGRAM AUTH BOT************************************************************* */
 const { TelecoreBot } = require('./telecore/bot.js');
-
+if (process.argv.includes('--bot')) {
 (async () => {
   try {
     console.log('auth bot started');
@@ -81,11 +80,13 @@ const { TelecoreBot } = require('./telecore/bot.js');
   } catch (error) {
     console.error(error);}
 })();
-
+}
 //***************************************************************************************************************************** */
 
-const { search_bot } = require('./telecore/search_bot.js');
 
+//************************************************TELEGRAM SEARCH BOT*********************************************************** */
+const { search_bot } = require('./telecore/search_bot.js');
+if (process.argv.includes('--bot')) {
 (async () => {
   try {
     console.log('search bot started');
@@ -93,7 +94,7 @@ const { search_bot } = require('./telecore/search_bot.js');
   } catch (error) {
     console.error(error);}
 })();
-
+}
 //***************************************************************************************************************************** */
 
 

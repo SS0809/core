@@ -28,12 +28,23 @@ class Pm2Lib {
     const proc = this.getStartOptions('index.js');
 
     try {
-      return promisify(pm2.start).call(pm2, proc);
+      return promisify(pm2.start).call(pm2, proc ,"--bot");
     } catch (error) {
       console.error('Error starting process:', error);
       throw error;
     }
   }
+
+  async botstartProcess() {
+    const proc = this.getStartOptions('index.js');
+
+    try {
+      return promisify(pm2.start).call(pm2, proc ,"--bot");
+    } catch (error) {
+      console.error('Error starting process:', error);
+      throw error;
+    }
+  }  
 
   async restartProcess() {
     try {
