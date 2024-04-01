@@ -48,7 +48,7 @@ bot.on('message', async (msg) => {
         console.log(params);
           try {
             console.log(params.text + "success");
-            bot.sendMessage(chatId, 'success');
+            bot.sendMessage(chatId, 'success , forward this msg to saved msgs .. we gonna delete this msg in 5 mins');
             const data1 = await search_telecore_data(params.text);
             console.log("data",data1);
             if(data1.admin== admin1 )
