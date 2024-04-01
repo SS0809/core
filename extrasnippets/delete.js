@@ -10,7 +10,7 @@ async function deleteMP4File(fileId) {
 const SCOPES = ['https://www.googleapis.com/auth/drive'];
 
 // Load the service account credentials
-const credentials = require('./drive-download-389811-b229f2e27ed8.json');
+const credentials = require('./drive-download-389811-ab674586465b.json');
 
 // Create a JWT client
 const authh = new google.auth.JWT(

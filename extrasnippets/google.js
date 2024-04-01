@@ -40,7 +40,7 @@ async function createPermission() {
 // Call the function to create the permission
 createPermission();
 const { google } = require('googleapis');
-const credentials = require('./drive-download-389811-b229f2e27ed8.json');
+const credentials = require('./drive-download-389811-ab674586465b.json');
 const scopes = [
   'https://www.googleapis.com/auth/drive'
 ];
@@ -65,7 +65,7 @@ drive.files.list({}, (err, res) => {
 
 //drive-download@drive-download-389811.iam.gserviceaccount.com
 const { google } = require('googleapis');
-const credentials = require('./drive-download-389811-b229f2e27ed8.json');
+const credentials = require('./drive-download-389811-ab674586465b.json');
 const scopes = [
   'https://www.googleapis.com/auth/drive'
 ];
@@ -111,7 +111,7 @@ async function createFilePermission(authClient, fileId, emailAddress, role) {
 async function deleteFilePermission(fileId, permissionId) {
   try {
     // Load the service account credentials from JSON key file
-    const credentials = require('./drive-download-389811-b229f2e27ed8.json');
+    const credentials = require('./drive-download-389811-ab674586465b.json');
 
 
     // Configure the Google API client with the service account credentials
@@ -139,7 +139,7 @@ async function deleteFilePermission(fileId, permissionId) {
 async function main() {
   try {
     // Load the service account credentials
-    const credentials = require('./drive-download-389811-b229f2e27ed8.json');
+    const credentials = require('./drive-download-389811-ab674586465b.json');
 
     // Create an auth client using the service account credentials
     const authClient = new google.auth.GoogleAuth({

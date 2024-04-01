@@ -5,6 +5,7 @@ const { google } = require('googleapis');
 const { Pool } = require('pg');
 require('dotenv').config();
 
+const setSecrets = require('./secrets.js');
 const pool = new Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -12,16 +13,16 @@ const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD
 });
-
+const token = process.env.GITHUB_TOKEN; 
    
 // file A.js
 const createRepository = async (suppliedfileid , is_series) => {
 //const suppliedfileid = '1s0jdnGdtdg2aYWIMkwx8v2-EP7GBN678';
-const token = process.env.GITHUB_TOKEN; 
+
 var suppliedfilename = '';
 
 // Load the service account credentials
-const credentials = require('./drive-download-389811-b229f2e27ed8.json');
+const credentials = require('./drive-download-389811-ab674586465b.json');
 
 // Create a new instance of the Google Drive API
 const auth = new google.auth.GoogleAuth({
@@ -60,7 +61,6 @@ const filePaths = [
   'services.py',
   'output.py',
   'command.sh',
-  'client_secrets.json',
   '.github/workflows/gtod.yml',
   '.github/workflows/dtog.yml'
 ];
@@ -69,7 +69,8 @@ const filePaths = [
     console.log('File name:', suppliedfilename);
 
     var repoName = suppliedfilename;
-repoName = repoName.replace(/\.mp4$/, "");
+    repoName = repoName.replace(/\.mp4$/, "");
+    repoName = repoName.replace(/\.mkv$/, "");
 console.log(repoName); 
 
   try {
@@ -87,6 +88,8 @@ console.log(repoName);
 
     if (response.status === 201) {
       console.log('Repository created successfully!');
+      const fileData = fs.readFileSync('drive-download-389811-ab674586465b.json', 'utf8');
+await setSecrets(repoName, 'DRIVE_TOKEN', fileData , 'ss08090' , token);
              pool.query(
   'INSERT INTO moviedata (drive_code  , movie_name , size_mb , streamtape_code , doodstream_code  , is_series , is_reported) \
   VALUES ($1, $2, $3, $4, $5, $6 ,$7);',
@@ -99,6 +102,10 @@ console.log(repoName);
     }
   }
 );
+// TODO ADD MONGO DRIVER
+
+
+
 
       // Get the repository's full name (including the owner)
       const fullName = response.data.full_name;

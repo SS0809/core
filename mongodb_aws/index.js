@@ -50,3 +50,4 @@ exports.handler = async (event, context) => {
     };
   }
 };
+///enabled cors for * at api gateway aws

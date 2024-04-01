@@ -7,8 +7,8 @@ def main():
     credentials = service_account.Credentials.from_service_account_file('client_secrets.json', scopes=['https://www.googleapis.com/auth/drive.file'])
     drive_service = build('drive', 'v3', credentials=credentials)
 
-    folder_id = '15NnqIEGg6BtLZn2cfKjoCWirJnplfpm7'  # Replace with the target folder ID
-
+    folder_id = '13cPqUdKzJM4vuYX-GD0YvhtZgvZNa1aF'  # Replace with the target folder ID
+# TODO MAKE IT DYNAMIC
     file_path = 'randomfile.mp4'  # Replace with the path to your file
 
     file_metadata = {'name': os.path.basename(file_path), 'parents': [folder_id]}

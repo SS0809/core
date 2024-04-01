@@ -39,7 +39,7 @@ class Pm2Lib {
     const proc = this.getStartOptions('index.js');
 
     try {
-      return promisify(pm2.start).call(pm2, proc ,"--bot");
+      return promisify(pm2.start).call(pm2, proc, { args: '--bot' });
     } catch (error) {
       console.error('Error starting process:', error);
       throw error;
@@ -65,7 +65,6 @@ class Pm2Lib {
   }
 
 getStartOptions(filename) {
-  const alias = filename.replace('.js', '');
   return {
     script: `index.js`,
     name: filename,
