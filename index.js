@@ -58,7 +58,7 @@ const db = mongoClient.db('CORE');
 const series_collection = db.collection('series');
 const movies_collection = db.collection('movies');
 server.start().then(() => {
-  app.use(expressMiddleware(server, {
+  app.use('/graphql',expressMiddleware(server, {
     context: async () => {
       return {
        movies_collection ,series_collection
@@ -124,9 +124,7 @@ app.get('/', (req, res) => {
   res.json('Server running successfully');
 });
 */
-app.get('/',(req,res)=>{
-  res.sendFile(__dirname +'/docs/README.md');
-});
+app.use('/', express.static(__dirname + '/docs'));
 app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/login.html');
 });
