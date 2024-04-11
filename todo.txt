@@ -1,0 +1,3 @@
+pm2 start index.js -- --bot
+
+curl -X POST 'https://store1.gofile.io/contents/uploadfile' -H "Authorization: Bearer your_token" -F "file=@file.txt" -F "folderId=5e042945-0e5c-4c1d-9293-4574d376e496"
