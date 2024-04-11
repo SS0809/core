@@ -33,6 +33,7 @@ const typeDefs = `
     img_data: JSON  
     is_reported: Int
     telegram: String
+    gofile: String
   }
   type Query {
     movie(movie_name: String!): Movie
